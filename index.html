@@ -22,9 +22,39 @@
 
 	<!-- Google web font  -->
 	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,300' rel='stylesheet' type='text/css'>
-	
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+      (function(){
+          emailjs.init("0Adj57Uo7BDl-BnaK");
+      })();
+  </script>
+
 </head>
 <body id="top" data-spy="scroll" data-offset="50" data-target=".navbar-collapse">
+  <script>
+    window.onload = function() {
+        document.querySelector("form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the form from reloading the page
+        
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+        
+            // Send the form data using EmailJS
+            emailjs.send("service_i378ddu", "template_yy19mdq", {
+                from_name: name,
+                from_email: email,
+                message: message,
+            })
+            .then(function(response) {
+                alert('Message sent successfully!');
+            }, function(error) {
+                alert('Oops! Something went wrong: ' + JSON.stringify(error));
+            });
+        });
+    };
+</script>
 
 
 <!-- Preloader section -->
@@ -277,31 +307,30 @@
 <section id="contact">
   <div class="container">
     <div class="row">
-
-       <div class="col-md-offset-1 col-md-10 col-sm-12">
-
-        <div class="col-lg-offset-1 col-lg-10 section-title wow fadeInUp" data-wow-delay="0.4s">
+      <div class="col-md-offset-1 col-md-10 col-sm-12">
+        <div class="section-title text-center wow fadeInUp" data-wow-delay="0.4s">
           <h1>Send a message</h1>
           <p>Lets get connected !!</p>
         </div>
 
         <form action="#" method="post" class="wow fadeInUp" data-wow-delay="0.8s">
-          <div class="col-md-6 col-sm-6">
-            <input name="name" type="text" class="form-control" id="name" placeholder="Name">
-          </div>
-          <div class="col-md-6 col-sm-6">
-            <input name="email" type="email" class="form-control" id="email" placeholder="Email">
-          </div>
-          <div class="col-md-12 col-sm-12">
-            <textarea name="message" rows="6" class="form-control" id="message" placeholder="Message"></textarea>
-          </div>
-          <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6">
-            <input type="submit" class="form-control" value="SEND MESSAGE">
+          <div class="row">
+            <div class="col-md-6 col-sm-6">
+              <input name="name" type="text" class="form-control" id="name" placeholder="Name" required>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <input name="email" type="email" class="form-control" id="email" placeholder="Email" required>
+            </div>
+            <div class="col-md-12 col-sm-12">
+              <textarea name="message" rows="6" class="form-control" id="message" placeholder="Message" required></textarea>
+            </div>
+            <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6">
+              <input type="submit" class="form-control" value="SEND MESSAGE">
+            </div>
           </div>
         </form>
 
       </div>
-
     </div>
   </div>
 </section>
